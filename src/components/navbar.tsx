@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { useTheme } from 'next-themes';
-import { usePathname } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
-  const pathName = usePathname();
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -15,14 +16,15 @@ export default function Navbar() {
 
   return (
     <div className="max-w-screen-lg px-4 pt-24 mx-auto">
-      <div className="flex items-end">
-        <div className="flex flex-row items-end">
+        <div className="flex flex-row items-stretch justify-between">
+          <div className="flex text-4xl font-bold" onClick={()=> router.push('/') }>Booking</div>
+          <div className="flex gap-4">
           <button
             aria-label="Toggle Dark Mode"
             type="button"
             className="w-10 h-10 p-3 rounded focus:outline-none"
             onClick={() => {
-              setTheme(theme === 'dark' ? 'light' : 'dark');
+              setTheme(theme === "dark" ? "light" : "dark");
             }}
           >
             {mounted && (
@@ -33,7 +35,7 @@ export default function Navbar() {
                 stroke="currentColor"
                 className="w-4 h-4 text-yellow-light dark:text-orange-dark"
               >
-                {theme === 'dark' ? (
+                {theme === "dark" ? (
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -51,9 +53,11 @@ export default function Navbar() {
               </svg>
             )}
           </button>
+          <Button onClick={()=> router.push('/sign-in')}>
+            Sign In
+          </Button>
+          </div>
         </div>
-      </div>
-
     </div>
   );
 }
